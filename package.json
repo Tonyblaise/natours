@@ -1,0 +1,39 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "Learning Express and Mongo DB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
+  },
+  "keywords": [
+    "express",
+    "mongo",
+    "db"
+  ],
+  "author": "Tony Blaise",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "es": "^0.8.0",
+    "mongoose": "^5.3.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.12.4",
+    "express": "^4.17.3",
+    "prettier": "^2.6.2"
+  },
+  "enginers": {
+    "node:": ">=10.0.0"
+  }
+}
