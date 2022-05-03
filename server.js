@@ -11,16 +11,32 @@ mongoose.connect(DB, {
     
 }).then(con => {
     console.log('DB connection successful')
-})
+}).catch(err=> console.log('Error'))
 
 const app = require('./app');
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server =app.listen(port, () => {
     console.log(`app running on port ${port}`)
 })
 
-module.exports = app;
+process.on('unhandledRejection', () => {
+    console.log(err.name, err.message)
+    console.log('UNHANDLED REJECTION! Shutting down...')
+    server.close(() => {
+        process.exit(1)
+    })
+    
+})
+process.on('uncaughtException', () => {
+    console.log('UNCAUGHT EXCEPTION! Shutting down...')
+    console.log(err.name, err.message)
+    
+    server.close(() => {
+        process.exit(1)
+    })
+    
+})
 
 // app.post('/', (req,res)=>{
 
