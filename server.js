@@ -5,8 +5,10 @@ dotenv.config({ path: './config.env' });
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD)
 mongoose.connect(DB, {
     useNewUrlParser: true,
-    userCreateIndex: true,
-    useFindAndModify: false
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+    
 }).then(con => {
     console.log('DB connection successful')
 })
