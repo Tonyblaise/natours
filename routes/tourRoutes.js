@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const tourController = require('./../controllers/tourController');
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
+const authController = require('./../controllers/authController');
 
 
 // router.param('id', tourController.checkID);

@@ -22,7 +22,7 @@ const userRouter=require('./routes/userRoutes')
 
 app.use('/api/v1/tours', tourRouter)
 
-app.use('/api/v1/tours', userRouter)
+app.use('/api/v1/users', userRouter)
 
 
 
