@@ -1,7 +1,8 @@
 
 const mongoose = require("mongoose")
 const slugify = require('slugify')
-const validator= require('validator')
+const validator = require('validator')
+const User =require('./usermodel')
 
 const tourSchema = new mongoose.Schema({
     name: {
@@ -90,6 +91,38 @@ const tourSchema = new mongoose.Schema({
         default: Date.now()
 
     },
+    startLocation: {
+        //Geo JSON
+        type: {
+            type: String,
+            default: 'Point',
+            enum: ['Point']
+
+        },
+        coordinates: [Number],
+        address: String,
+        description: String
+    },
+    locations: [
+        {
+            type: {
+                type: String,
+                default: 'Point',
+                enum:['Point']
+            },
+            coordinates: [Number],
+            address: String,
+            description: String,
+            day: Number
+        }
+    
+    ],
+    guides: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+
+    }
+    ],
     startDates: [Date],
     secretTour: {
         type: Boolean,
@@ -115,9 +148,21 @@ const tourSchema = new mongoose.Schema({
 
 
 // //DOCUMENT MIDDLEWARE : runs before .save() and .create()
-// tourSchema.pre('save', function (next) {
-//     this.slug = slugify(this.name, { lower: true })
-//     next();
+tourSchema.pre('save', function (next) {
+    this.slug = slugify(this.name, { lower: true })
+    next();
+})
+tourSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'guides',
+        select: '-__v -passwordChangedAt'
+    })
+    next()
+})
+// tourSchema.pre('save',  async function (next) {
+//     const guidesPromises = this.guides.map(async id => await User.findById(id))
+//     this.guides = await Promise.all(guidesPromises)
+//     next()
 // })
 // tourSchema.pre('save', function (next) {
 //     console.log('Will save document...')

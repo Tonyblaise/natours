@@ -9,9 +9,9 @@ mongoose.connect(DB, {
     useFindAndModify: false,
     
     
-}).then(con => {
+}).then(() => {
     console.log('DB connection successful')
-}).catch(err=> console.log('Error'))
+}).catch(err=> console.log(err))
 
 const app = require('./app');
 
