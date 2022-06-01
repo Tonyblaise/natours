@@ -4,6 +4,7 @@ const Tour = require('./../models/tour_model')
 const APIFeatures = require('./../utils/apiFeatures.js')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
+const factory = require('./handlerFactory')
 
 
 
@@ -55,53 +56,12 @@ exports.getTour = catchAsync( async (req,res, next)=>{
 
 
 
-exports.createNewTour = catchAsync (async (req, res, next) => {
-   const newTour=await Tour.create(req.body)
-   
-    res.status(201).json({
-    
-        status: 'success',
-        data:{
-            tour: newTour
-        }
-    })
-   
-})
+exports.createNewTour = factory.createOne(Tour)
 
-exports.updateTour = catchAsync(async (req, res, next) => {
+exports.updateTour = factory.updateOne(Tour)
     
-        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        })
-     if (!tour) {
-        next (new AppError('No tour found with that ID', 404))
-        return
-    }
-        res.status(200).json({
-        status: 'success',
-        data:{
-        tour: tour
-         }
-        })
-     
-    
-       
-    })
-exports.deleteTour = catchAsync(async (req, res, next) => {
-    
-    const tour = await Tour.findByIdAndDelete(req.params.id)
-     if (!tour) {
-        next (new AppError('No tour found with that ID', 404))
-        return
-    }
-        res.status(204).json({
-            status: 'success',
-            data: null
-        })
-   
-}
-)
+exports.deleteTour=factory.deleteOne(Tour)
+
 exports.getTourStats = catchAsync( async (req, res, next) => {
    
         const stats = await  Tour.aggregate(
