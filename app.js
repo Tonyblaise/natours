@@ -9,6 +9,9 @@ const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
 const hpp = require('hpp')
+const tourRouter = require('./routes/tourRoutes.js')
+const userRouter = require('./routes/userRoutes')
+const reviewRouter = require('./routes/reviewRoutes')
 
 //1 Middlewares
 //Development logging
@@ -48,12 +51,12 @@ app.use(express.static(`${__dirname}/public`))
 
 
 
-const tourRouter = require('./routes/tourRoutes.js')
-const userRouter=require('./routes/userRoutes')
+
 
 app.use('/api/v1/tours', tourRouter)
 
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/reviews', reviewRouter)
 
 
 

@@ -7,6 +7,7 @@ const authController = require('./../controllers/authController')
 
 
 
+
 // app.post('/api/v1/tours', createNewTour)
 // app.patch('/api/v1/tours/:id',updateTour )
 // app.delete('/api/v1/tours/:id', deleteTour)
@@ -33,4 +34,7 @@ router.delete('/deleteMe',authController.protect, userController.deleteMe)
 router.route('/').get(userController.getAllUsers).post(userController.createUser)
 router.route('/:id').get(userController.getUser).patch(userController.updateUser)
 
-module.exports= router
+
+
+module.exports = router
+

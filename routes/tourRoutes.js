@@ -4,6 +4,7 @@ const router = express.Router();
 const tourController = require('./../controllers/tourController');
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
 const authController = require('./../controllers/authController');
+const reviewController = require('./../controllers/reviewController')
 
 
 // router.param('id', tourController.checkID);
@@ -18,7 +19,9 @@ router.route('/').get(authController.protect,tourController.getAllTours).post(to
 router.route('/:id')
  .get( tourController.getTour)
 .patch(tourController.updateTour)
-.delete(authController.protect,authController.restrictTo('admin','lead-guide'), tourController.deleteTour);
+    .delete(authController.protect, authController.restrictTo('admin', 'lead-guide'), tourController.deleteTour);
+
+router.route('/:tourId/reviews').post(authController.protect, authController.restrictTo('user'),reviewController.createReview)
 
 
 // 
