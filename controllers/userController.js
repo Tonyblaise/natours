@@ -23,3 +23,7 @@ exports.getAllUsers = factory.getAll(User)
 exports.updateUser =  factory.updateOne(User)   
 exports.getUser=factory.getOne(User)
 exports.deleteMe = factory.deleteOne(User)
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id;
+    next()
+}

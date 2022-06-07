@@ -20,7 +20,8 @@ const tourSchema = new mongoose.Schema({
         type: Number,
         default: 4.5,
         min: [1, "Rating must be above 1.0"],
-        max: [5, "Rating must be below 5.0"]
+        max: [5, "Rating must be below 5.0"],
+        set:val=>Math.round(val*10)/10
       
     },
     price: {
@@ -46,10 +47,10 @@ const tourSchema = new mongoose.Schema({
             message:'Difficulty is either: easy, medium, difficult'
         }
     },
-    rating: {
-        type: Number,
-        default: 4.5
-    },
+    // rating: {
+    //     type: Number,
+    //     default: 4.5
+    // },
     ratingsQuantity: {
         type: Number,
         default: 0
@@ -146,6 +147,11 @@ const tourSchema = new mongoose.Schema({
 // tourSchema.virtual('durationWeeks').get(function () {
 //     return this.duration / 7;
 // })
+
+// tourSchema.index({ price: 1 })
+// tourSchema.index({slug:1})
+
+
 //Virtual populate
 tourSchema.virtual('reviews', {
     ref: 'Review',
