@@ -148,8 +148,9 @@ const tourSchema = new mongoose.Schema({
 //     return this.duration / 7;
 // })
 
-// tourSchema.index({ price: 1 })
-// tourSchema.index({slug:1})
+tourSchema.index({ price: 1 })
+tourSchema.index({ slug: 1 })
+tourSchema.index({startlocation:'2dsphere'})
 
 
 //Virtual populate
