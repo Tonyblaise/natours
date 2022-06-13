@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const morgan = require('morgan')
 const express = require("express")
 const rateLimit=require('express-rate-limit')
@@ -12,6 +13,9 @@ const hpp = require('hpp')
 const tourRouter = require('./routes/tourRoutes.js')
 const userRouter = require('./routes/userRoutes')
 const reviewRouter = require('./routes/reviewRoutes')
+const viewRouter = require('./routes/viewRoutes')
+
+
 
 //1 Middlewares
 //Development logging
@@ -46,15 +50,19 @@ app.use(hpp({
 }))
 
 //serving static files
-app.use(express.static(`${__dirname}/public`))
+// app.use(express.static(`${__dirname}/public`))
+app.use(express.static(path.join(__dirname,'public')))
 
 
 
 
-
-
+app.set('view engine', 'pug')
+app.set('views',path.join(__dirname, 'views'))
 app.use('/api/v1/tours', tourRouter)
 
+
+
+app.use('/', viewRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/reviews', reviewRouter)
 
